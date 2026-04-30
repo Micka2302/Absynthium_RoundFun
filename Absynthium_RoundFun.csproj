@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Absynthium_RoundFun</AssemblyName>
+    <RootNamespace>Absynthium.RoundFun</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CounterStrikeSharp.API" Version="1.0.364" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="lang\en.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

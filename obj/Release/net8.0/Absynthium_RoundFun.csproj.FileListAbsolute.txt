@@ -1,0 +1,13 @@
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\bin\Release\net8.0\lang\en.json
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\bin\Release\net8.0\Absynthium_RoundFun.deps.json
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\bin\Release\net8.0\Absynthium_RoundFun.dll
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\bin\Release\net8.0\Absynthium_RoundFun.pdb
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\Absynthium_RoundFun.csproj.AssemblyReference.cache
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\Absynthium_RoundFun.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\Absynthium_RoundFun.AssemblyInfoInputs.cache
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\Absynthium_RoundFun.AssemblyInfo.cs
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\Absynthium_RoundFun.csproj.CoreCompileInputs.cache
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\Absynthium_RoundFun.dll
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\refint\Absynthium_RoundFun.dll
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\Absynthium_RoundFun.pdb
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\ref\Absynthium_RoundFun.dll

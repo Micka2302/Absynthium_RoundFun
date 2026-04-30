@@ -1,0 +1,17 @@
+{
+  "chat.prefix": "{green}[Absynthium RoundFun]{default}",
+  "command.only_ingame": "{red}This command is only available in-game.",
+  "command.no_access": "{red}You do not have access to this command.",
+  "command.disabled": "{red}This round fun type is disabled in the config.",
+  "command.queued": "{lightgreen}Round fun queued for next round: {orange}{0}{default}.",
+  "command.queued_by": "{orange}{0}{default} forced next round fun: {orange}{1}{default}.",
+  "round.announce.chat": "{yellow}ROUND FUN - {orange}{0}",
+  "round.announce.html": "<font class='fontSize-l' color='#FFB347'>ROUND FUN</font><br><font class='fontSize-m' color='#FFFFFF'>{0}</font>",
+  "round.announce.center": "<font color='#FFB347'>{0}</font> <br> {1} <br> <font color='white'>ROUND FUN</font>",
+  "round.announce.image.noscope_awp": "<img src='https://raw.githubusercontent.com/Micka2302/cs2-retakes-allocator-2.0/refs/heads/main/Resources/ASITEv2.png' class=''>",
+  "round.announce.image.ssg": "<img src='https://raw.githubusercontent.com/Micka2302/cs2-retakes-allocator-2.0/refs/heads/main/Resources/BSITEv2.png' class=''>",
+  "round.announce.image.ssg_noscope": "<img src='https://raw.githubusercontent.com/Micka2302/cs2-retakes-allocator-2.0/refs/heads/main/Resources/ASITEv2.png' class=''>",
+  "round.name.noscope_awp": "NOSCOPE AWP",
+  "round.name.ssg": "SSG",
+  "round.name.ssg_noscope": "SSG NOSCOPE"
+}

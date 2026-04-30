@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "Enabled": true,
+  "MinPlayers": 2,
+  "FunRoundChancePercent": 25,
+  "EnableNoscopAwp": true,
+  "EnableSsg": true,
+  "EnableSsgNoscop": true,
+  "ForceCommandPermission": "",
+  "StripWeapons": true,
+  "GiveKnife": true,
+  "GiveArmor": true,
+  "AnnounceInChat": true,
+  "AnnounceCenterHtml": true,
+  "AnnouncementDurationSeconds": 10
+}
