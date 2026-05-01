@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "Absynthium_RoundFun/1.0.0": {
+      "Absynthium_RoundFun/1.0": {
         "dependencies": {
           "CounterStrikeSharp.API": "1.0.364"
         },
@@ -516,7 +516,7 @@
     }
   },
   "libraries": {
-    "Absynthium_RoundFun/1.0.0": {
+    "Absynthium_RoundFun/1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

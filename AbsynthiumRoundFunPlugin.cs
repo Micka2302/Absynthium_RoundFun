@@ -26,7 +26,7 @@ public sealed class RoundFunConfig : BasePluginConfig
 
     public bool Enabled { get; set; } = true;
 
-    public int FunRoundChancePercent { get; set; } = 30;
+    public int FunRoundChancePercent { get; set; } = 20;
 
     public bool EnableNoscopAwp { get; set; } = true;
 
@@ -92,6 +92,7 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
     private RoundFunType? _activeRound;
     private RoundFunType? _centerAnnouncementRound;
     private RoundFunType? _forcedNextRound;
+    private bool _forceNormalNextRound;
     private float _centerAnnouncementEndTime;
     private string _centerAnnouncementHtml = string.Empty;
     private string _messagesPath = string.Empty;
@@ -100,7 +101,7 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
 
     public override string ModuleName => "Absynthium_RoundFun";
 
-    public override string ModuleVersion => "1.0.0";
+    public override string ModuleVersion => "1.0";
 
     public override string ModuleAuthor => "micka";
 
@@ -136,6 +137,7 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
 
         _activeRound = null;
         _forcedNextRound = null;
+        _forceNormalNextRound = false;
         ClearCenterAnnouncement();
         ClearNoScopeTargets();
         ClearEquippedTargets();
@@ -148,6 +150,13 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
         ResetNoScopeRestrictionsForAllPlayers();
         ClearNoScopeTargets();
         ClearEquippedTargets();
+
+        if (_forceNormalNextRound)
+        {
+            _forceNormalNextRound = false;
+            _forcedNextRound = null;
+            return HookResult.Continue;
+        }
 
         if (!Config.Enabled)
         {
@@ -172,6 +181,7 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
     private HookResult OnRoundEnd(EventRoundEnd @event, GameEventInfo info)
     {
         ResetNoScopeRestrictionsForAllPlayers();
+        _forceNormalNextRound = _activeRound is not null;
         _activeRound = null;
         ClearCenterAnnouncement();
         ClearNoScopeTargets();

@@ -1,7 +1,7 @@
 {
   "Version": 1,
   "Enabled": true,
-  "FunRoundChancePercent": 30,
+  "FunRoundChancePercent": 20,
   "EnableNoscopAwp": true,
   "EnableSsg": true,
   "EnableSsgNoscop": true,

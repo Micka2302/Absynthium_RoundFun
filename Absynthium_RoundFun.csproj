@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <AssemblyName>Absynthium_RoundFun</AssemblyName>
     <RootNamespace>Absynthium.RoundFun</RootNamespace>
+    <Version>1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
