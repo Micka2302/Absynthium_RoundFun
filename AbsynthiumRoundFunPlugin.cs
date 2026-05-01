@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Numerics;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 
 using CounterStrikeSharp.API;
@@ -25,9 +26,7 @@ public sealed class RoundFunConfig : BasePluginConfig
 
     public bool Enabled { get; set; } = true;
 
-    public int MinPlayers { get; set; } = 2;
-
-    public int FunRoundChancePercent { get; set; } = 25;
+    public int FunRoundChancePercent { get; set; } = 30;
 
     public bool EnableNoscopAwp { get; set; } = true;
 
@@ -35,13 +34,9 @@ public sealed class RoundFunConfig : BasePluginConfig
 
     public bool EnableSsgNoscop { get; set; } = true;
 
-    public string ForceCommandPermission { get; set; } = "";
+    public string ForceCommandPermission { get; set; } = "@css/ban";
 
     public bool StripWeapons { get; set; } = true;
-
-    public bool GiveKnife { get; set; } = true;
-
-    public bool GiveArmor { get; set; } = true;
 
     public bool AnnounceInChat { get; set; } = true;
 
@@ -65,6 +60,7 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
     private static readonly JsonSerializerOptions LangJsonOptions = new()
     {
         WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         ReadCommentHandling = JsonCommentHandling.Skip,
         AllowTrailingCommas = true,
         PropertyNameCaseInsensitive = true
@@ -160,11 +156,6 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
         }
 
         var forcedRound = ConsumeForcedRound();
-        if (forcedRound is null && GetConnectedPlayablePlayersCount() < Config.MinPlayers)
-        {
-            return HookResult.Continue;
-        }
-
         var selectedRound = forcedRound ?? PickRandomRound();
         if (selectedRound is null)
         {
@@ -446,16 +437,8 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
         }
 
         player.GiveNamedItem(GetRoundWeapon(round));
-
-        if (Config.GiveKnife)
-        {
-            player.GiveNamedItem(CsItem.Knife);
-        }
-
-        if (Config.GiveArmor)
-        {
-            player.GiveNamedItem(CsItem.AssaultSuit);
-        }
+        player.GiveNamedItem(CsItem.Knife);
+        player.GiveNamedItem(CsItem.AssaultSuit);
 
         if (IsNoScopeRound(round))
         {
@@ -782,7 +765,6 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
         }
         catch
         {
-            // If permissions backend is unavailable, don't block force commands completely.
             return true;
         }
     }
@@ -850,20 +832,6 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
         {
             return false;
         }
-    }
-
-    private static int GetConnectedPlayablePlayersCount()
-    {
-        var count = 0;
-        foreach (var player in Utilities.GetPlayers())
-        {
-            if (IsRoundPlayer(player))
-            {
-                count++;
-            }
-        }
-
-        return count;
     }
 
     private void Broadcast(string message, int? exceptSlot = null)
@@ -1026,7 +994,6 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
 
     private static RoundFunConfig NormalizeConfig(RoundFunConfig config)
     {
-        config.MinPlayers = Math.Max(0, config.MinPlayers);
         config.FunRoundChancePercent = Math.Clamp(config.FunRoundChancePercent, 0, 100);
         config.AnnouncementDurationSeconds = Math.Clamp(config.AnnouncementDurationSeconds, MinAnnouncementDurationSeconds, MaxAnnouncementDurationSeconds);
         config.ForceCommandPermission = config.ForceCommandPermission?.Trim() ?? string.Empty;

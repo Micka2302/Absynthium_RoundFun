@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Absynthium_RoundFun")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2f0c684e4e9c30778fdc67f47b39df279da1917e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Absynthium_RoundFun")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Absynthium_RoundFun")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -11,3 +11,4 @@ C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Rele
 C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\refint\Absynthium_RoundFun.dll
 C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\Absynthium_RoundFun.pdb
 C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\ref\Absynthium_RoundFun.dll
+C:\Users\micka\Documents\GitHub\Absynthium_RoundFun\Absynthium_RoundFun\obj\Release\net8.0\Absynthium_RoundFun.sourcelink.json
