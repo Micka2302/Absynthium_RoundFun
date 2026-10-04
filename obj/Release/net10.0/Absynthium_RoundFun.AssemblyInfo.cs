@@ -12,11 +12,11 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("Absynthium_RoundFun")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+0e4345cab49e2d4dd3d4b0f69e879114912c10b9")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.369.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.369+181574c8e2c1d089ec4ae4701e5d07d5a60b5f95")]
 [assembly: System.Reflection.AssemblyProductAttribute("Absynthium_RoundFun")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Absynthium_RoundFun")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.0.369.0")]
 
 // Généré par la classe MSBuild WriteCodeFragment.
 

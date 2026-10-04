@@ -45,7 +45,7 @@ public sealed class RoundFunConfig : BasePluginConfig
     public int AnnouncementDurationSeconds { get; set; } = 10;
 }
 
-[MinimumApiVersion(333)]
+[MinimumApiVersion(369)]
 public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFunConfig>
 {
     private const byte LifeStateAlive = 0;
@@ -101,7 +101,7 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
 
     public override string ModuleName => "Absynthium_RoundFun";
 
-    public override string ModuleVersion => "1.0";
+    public override string ModuleVersion => "1.0.369";
 
     public override string ModuleAuthor => "micka";
 
@@ -150,6 +150,13 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
         ResetNoScopeRestrictionsForAllPlayers();
         ClearNoScopeTargets();
         ClearEquippedTargets();
+
+        if (IsWarmupPeriod())
+        {
+            _forcedNextRound = null;
+            _forceNormalNextRound = false;
+            return HookResult.Continue;
+        }
 
         if (_forceNormalNextRound)
         {
@@ -200,6 +207,8 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
         var slot = player!.Slot;
         AddTimer(0.10f, () => ApplyRoundToSlot(slot));
         AddTimer(0.50f, () => ApplyRoundToSlot(slot));
+        AddTimer(1.00f, () => EnsureRoundWeaponForSlot(slot));
+        AddTimer(1.50f, () => EnsureRoundWeaponForSlot(slot));
 
         return HookResult.Continue;
     }
@@ -392,6 +401,8 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
     {
         AddTimer(0.10f, ApplyRoundToAllPlayers);
         AddTimer(0.50f, ApplyRoundToAllPlayers);
+        AddTimer(1.00f, EnsureRoundWeaponForAllPlayers);
+        AddTimer(1.50f, EnsureRoundWeaponForAllPlayers);
     }
 
     private void ApplyRoundToAllPlayers()
@@ -456,8 +467,114 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
         }
     }
 
+    private void EnsureRoundWeaponForAllPlayers()
+    {
+        if (_activeRound is null)
+        {
+            return;
+        }
+
+        foreach (var player in Utilities.GetPlayers())
+        {
+            if (!IsRoundPlayer(player) || !IsAlive(player!))
+            {
+                continue;
+            }
+
+            EnsureRoundWeapon(player!);
+        }
+    }
+
+    private void EnsureRoundWeaponForSlot(int slot)
+    {
+        if (_activeRound is null)
+        {
+            return;
+        }
+
+        var player = Utilities.GetPlayerFromSlot(slot);
+        if (!IsRoundPlayer(player) || !IsAlive(player!))
+        {
+            return;
+        }
+
+        EnsureRoundWeapon(player!);
+    }
+
+    private void EnsureRoundWeapon(CCSPlayerController player)
+    {
+        if (_activeRound is null)
+        {
+            return;
+        }
+
+        var round = _activeRound.Value;
+        var expectedWeapon = GetRoundWeaponDesignerName(round);
+        if (PlayerHasWeapon(player, expectedWeapon))
+        {
+            return;
+        }
+
+        ReplaceRoundLoadout(player, round);
+    }
+
     private static CsItem GetRoundWeapon(RoundFunType roundType)
         => roundType == RoundFunType.NoscopAwp ? CsItem.AWP : CsItem.SSG08;
+
+    private static string GetRoundWeaponDesignerName(RoundFunType roundType)
+        => roundType == RoundFunType.NoscopAwp ? "weapon_awp" : "weapon_ssg08";
+
+    private static void ReplaceRoundLoadout(CCSPlayerController player, RoundFunType round)
+    {
+        player.RemoveWeapons();
+        player.GiveNamedItem(GetRoundWeapon(round));
+        player.GiveNamedItem(CsItem.Knife);
+        player.GiveNamedItem(CsItem.AssaultSuit);
+    }
+
+    private static bool PlayerHasWeapon(CCSPlayerController player, string designerName)
+    {
+        try
+        {
+            var weapons = player.PlayerPawn.Value?.WeaponServices?.MyWeapons;
+            if (weapons is null)
+            {
+                return false;
+            }
+
+            foreach (var weaponHandle in weapons)
+            {
+                var weapon = weaponHandle.Value;
+                if (weapon is { IsValid: true } &&
+                    string.Equals(weapon.DesignerName, designerName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+        }
+        catch
+        {
+            return false;
+        }
+
+        return false;
+    }
+
+    private static bool IsWarmupPeriod()
+    {
+        try
+        {
+            var gameRules = Utilities.FindAllEntitiesByDesignerName<CCSGameRulesProxy>("cs_gamerules")
+                .FirstOrDefault()?
+                .GameRules;
+
+            return gameRules?.WarmupPeriod ?? false;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
     private static bool IsNoScopeRound(RoundFunType roundType)
         => roundType is RoundFunType.NoscopAwp or RoundFunType.SsgNoscop;
@@ -788,7 +905,7 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
         try
         {
             if (player is not { IsValid: true } ||
-                player.Connected != PlayerConnectedState.PlayerConnected ||
+                player.Connected != PlayerConnectedState.Connected ||
                 player.IsHLTV)
             {
                 return false;
@@ -807,7 +924,7 @@ public sealed class AbsynthiumRoundFunPlugin : BasePlugin, IPluginConfig<RoundFu
         try
         {
             return player is { IsValid: true } &&
-                   player.Connected == PlayerConnectedState.PlayerConnected &&
+                   player.Connected == PlayerConnectedState.Connected &&
                    !player.IsBot &&
                    !player.IsHLTV;
         }
